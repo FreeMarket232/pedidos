@@ -160,15 +160,16 @@
                 if (cant > 0) mensaje += `✅ ${cant}x ${p.getAttribute('data-nombre')}\n`;
             });
             mensaje += `\n💰 *TOTAL: RD$${total}*`;
-        }
+        function enviarWhatsApp() {
+    // ... (todo tu código anterior de captura de datos)
 
-        if(notas) mensaje += `\n\n📝 *NOTAS:* ${notas}`;
-        
-        // AQUÍ ESTÁ TU NÚMERO PARA PRUEBAS
-        let miNumero = "18097214456"; 
-        let url = `https://whatsapp.com{miNumero}&text=${encodeURIComponent(mensaje)}`;
-        window.open(url, '_blank');
-    }
+    // REEMPLAZA EL FINAL CON ESTO:
+    let miNumero = "18097214456"; // Tu número de prueba
+    let url = `https://wa.me{miNumero}?text=${encodeURIComponent(mensaje)}`;
+    
+    // Esta línea es la clave: no usa pop-ups, redirecciona directo
+    window.location.href = url;
+}
 </script>
 
 </body>
