@@ -6,46 +6,61 @@
     <title>Colmado El Baratón - Pedidos</title>
     <link rel="stylesheet" href="https://cloudflare.com">
     <style>
-        :root { --primary: #2ecc71; --secondary: #2c3e50; --accent: #e74c3c; }
-        body { font-family: 'Poppins', sans-serif; background: #f0f2f5; margin: 0; padding-bottom: 120px; }
-        header { background: var(--secondary); color: white; text-align: center; padding: 25px 15px; border-bottom: 5px solid var(--primary); }
-        header h1 { margin: 0; font-size: 1.8rem; text-transform: uppercase; }
-        .container { padding: 15px; max-width: 500px; margin: auto; }
+        :root { --primary: #27ae60; --secondary: #2c3e50; --bg: #f8f9fa; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding-bottom: 140px; color: #333; }
+        header { background: var(--secondary); color: white; text-align: center; padding: 30px 15px; border-bottom: 5px solid var(--primary); }
         
-        /* Tarjeta de Producto con Imagen */
-        .producto { background: white; border-radius: 15px; overflow: hidden; margin-bottom: 15px; display: flex; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.08); transition: 0.3s; }
-        .img-prod { width: 80px; height: 80px; object-fit: cover; padding: 10px; }
-        .info { flex: 1; padding: 10px; }
-        .info h3 { margin: 0; font-size: 1rem; color: #333; }
-        .info p { margin: 5px 0; color: var(--primary); font-weight: 700; font-size: 1.1rem; }
+        /* CUADRÍCULA DE PRODUCTOS */
+        .grid-productos { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+            gap: 15px; 
+            padding: 15px; 
+            max-width: 600px; 
+            margin: auto; 
+        }
         
-        .controles { display: flex; align-items: center; gap: 12px; padding-right: 15px; }
-        button.qty { background: #eee; color: #333; border: none; border-radius: 50%; width: 35px; height: 35px; font-weight: bold; cursor: pointer; font-size: 1.2rem; }
+        .producto { 
+            background: white; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+            padding-bottom: 10px;
+            text-align: center;
+        }
+        
+        .img-prod { width: 100%; height: 120px; object-fit: cover; background: #eee; }
+        .info { padding: 10px; width: 100%; box-sizing: border-box; }
+        .info h3 { margin: 0; font-size: 0.9rem; height: 35px; overflow: hidden; }
+        .info p { margin: 5px 0; color: var(--primary); font-weight: bold; font-size: 1.1rem; }
+        
+        .controles { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 5px; }
+        button.qty { background: #f1f1f1; border: none; border-radius: 5px; width: 30px; height: 30px; font-weight: bold; cursor: pointer; }
         button.qty:active { background: var(--primary); color: white; }
-        .cantidad { font-weight: bold; min-width: 20px; text-align: center; }
 
-        /* Formulario */
-        .seccion-pedido { background: white; border-radius: 15px; padding: 20px; margin-top: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
-        .seccion-pedido h3 { margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; color: var(--secondary); }
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid #eee; border-radius: 8px; font-size: 1rem; box-sizing: border-box; }
-        input:focus { border-color: var(--primary); outline: none; }
+        /* FORMULARIO */
+        .seccion-pedido { background: white; border-radius: 12px; padding: 20px; margin: 0 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); max-width: 570px; margin: auto; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 1rem; }
         
-        /* Footer Fijo */
-        .footer-total { position: fixed; bottom: 0; width: 100%; background: white; padding: 20px; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); text-align: center; box-sizing: border-box; border-radius: 20px 20px 0 0; }
-        .btn-enviar { background: #25d366; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1.2rem; font-weight: bold; cursor: pointer; width: 100%; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        /* FOOTER TOTAL */
+        .footer-total { position: fixed; bottom: 0; width: 100%; background: white; padding: 15px; box-shadow: 0 -4px 15px rgba(0,0,0,0.1); text-align: center; box-sizing: border-box; }
+        .btn-enviar { background: #25d366; color: white; border: none; padding: 15px; border-radius: 10px; font-size: 1.2rem; font-weight: bold; cursor: pointer; width: 100%; display: flex; justify-content: center; align-items: center; gap: 10px; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1><i class="fas fa-store"></i> El Baratón</h1>
-    <p style="margin:5px 0 0">¡Pide ahora y recibe en minutos! 🛵</p>
+    <h1>🏢 El Baratón</h1>
+    <p>¡Calidad y economía en su mesa!</p>
 </header>
 
-<div class="container">
-    <!-- PRODUCTOS TOP 5 RD -->
+<div class="grid-productos">
+    <!-- PRODUCTOS -->
     <div class="producto" data-nombre="Arroz Selecto (Lb)" data-precio="35">
-        <img src="https://unsplash.com" class="img-prod">
+        <img src="https://postimg.cc" class="img-prod">
         <div class="info"><h3>Arroz Selecto (Lb)</h3><p>RD$35</p></div>
         <div class="controles">
             <button class="qty" onclick="cambiarCant(this, -1)">-</button>
@@ -55,7 +70,7 @@
     </div>
 
     <div class="producto" data-nombre="Aceite 16oz" data-precio="95">
-        <img src="https://unsplash.com" class="img-prod">
+        <img src="https://postimg.cc" class="img-prod">
         <div class="info"><h3>Aceite 16oz</h3><p>RD$95</p></div>
         <div class="controles">
             <button class="qty" onclick="cambiarCant(this, -1)">-</button>
@@ -64,9 +79,9 @@
         </div>
     </div>
 
-    <div class="producto" data-nombre="Cerveza Presidenta" data-precio="250">
-        <img src="https://unsplash.com" class="img-prod">
-        <div class="info"><h3>Presidenta (G)</h3><p>RD$250</p></div>
+    <div class="producto" data-nombre="Cerveza Presidente" data-precio="250">
+        <img src="https://postimg.cc" class="img-prod">
+        <div class="info"><h3>Presidente (G)</h3><p>RD$250</p></div>
         <div class="controles">
             <button class="qty" onclick="cambiarCant(this, -1)">-</button>
             <span class="cantidad">0</span>
@@ -75,7 +90,7 @@
     </div>
 
     <div class="producto" data-nombre="Salami Super (Lb)" data-precio="145">
-        <img src="https://unsplash.com" class="img-prod">
+        <img src="https://postimg.cc" class="img-prod">
         <div class="info"><h3>Salami Super (Lb)</h3><p>RD$145</p></div>
         <div class="controles">
             <button class="qty" onclick="cambiarCant(this, -1)">-</button>
@@ -83,25 +98,23 @@
             <button class="qty" onclick="cambiarCant(this, 1)">+</button>
         </div>
     </div>
+</div>
 
-    <!-- DATOS DE ENVÍO -->
-    <div class="seccion-pedido">
-        <h3><i class="fas fa-clipboard-list"></i> Finalizar Pedido</h3>
-        <input type="text" id="nombreCliente" placeholder="¿Su nombre?">
-        <select id="tipoEntrega" onchange="toggleDireccion()">
-            <option value="delivery">Envío a domicilio (Delivery) 🛵</option>
-            <option value="recogida">Yo paso a buscarlo 🏃‍♂️</option>
-        </select>
-        <textarea id="direccion" placeholder="Dirección exacta..."></textarea>
-        <!-- CAMPO NUEVO: NOTAS ADICIONALES -->
-        <textarea id="notasExtra" placeholder="¿Algo más que necesite? (Ej: Una recarga de 100, un botellón...)"></textarea>
-    </div>
+<div class="seccion-pedido">
+    <h3>📝 Datos del Envío</h3>
+    <input type="text" id="nombreCliente" placeholder="¿Cómo se llama usted?">
+    <select id="tipoEntrega" onchange="toggleDireccion()">
+        <option value="delivery">Envío por Delivery 🛵</option>
+        <option value="recogida">Pasaré a buscarlo 🏃‍♂️</option>
+    </select>
+    <textarea id="direccion" placeholder="Dirección exacta..."></textarea>
+    <textarea id="notasExtra" placeholder="¿Algo más? (Ej: Una recarga, botellón...)"></textarea>
 </div>
 
 <div class="footer-total">
-    <div style="margin-bottom: 10px; font-size: 1.2rem;">Total a pagar: <strong>RD$<span id="totalGral">0</span></strong></div>
+    <div style="margin-bottom: 10px;">Total: <strong>RD$<span id="totalGral">0</span></strong></div>
     <button class="btn-enviar" onclick="enviarWhatsApp()">
-        <i class="fab fa-whatsapp"></i> HACER PEDIDO
+        <i class="fab fa-whatsapp"></i> ENVIAR PEDIDO
     </button>
 </div>
 
@@ -118,8 +131,7 @@
         total = 0;
         document.querySelectorAll('.producto').forEach(p => {
             let cant = parseInt(p.querySelector('.cantidad').innerText);
-            let precio = parseInt(p.getAttribute('data-precio'));
-            total += (cant * precio);
+            total += (cant * parseInt(p.getAttribute('data-precio')));
         });
         document.getElementById('totalGral').innerText = total;
     }
@@ -133,36 +145,28 @@
         let dir = document.getElementById('direccion').value;
         let notas = document.getElementById('notasExtra').value;
         
-        if (!nombre) { alert("Por favor, dinos tu nombre."); return; }
-        if (total === 0 && !notas) { alert("Agregue algo al carrito o escriba una nota."); return; }
+        if (!nombre) { alert("Por favor, ponga su nombre."); return; }
+        if (total === 0 && !notas) { alert("El carrito está vacío."); return; }
 
-        let mensaje = `*¡NUEVO PEDIDO - EL BARATÓN!* 🛒\n`;
-        mensaje += `━━━━━━━━━━━━━━━━━━\n`;
+        let mensaje = `*PEDIDO: EL BARATÓN* 🛒\n`;
         mensaje += `👤 *Cliente:* ${nombre}\n`;
         mensaje += `🛵 *Tipo:* ${tipo === 'delivery' ? 'Delivery' : 'Recogida'}\n`;
         if(tipo === 'delivery') mensaje += `📍 *Dir:* ${dir}\n`;
-        mensaje += `━━━━━━━━━━━━━━━━━━\n`;
         
         if(total > 0) {
-            mensaje += `*PRODUCTOS:*\n`;
+            mensaje += `\n*PRODUCTOS:*\n`;
             document.querySelectorAll('.producto').forEach(p => {
                 let cant = parseInt(p.querySelector('.cantidad').innerText);
-                if (cant > 0) {
-                    mensaje += `✅ ${cant}x ${p.getAttribute('data-nombre')}\n`;
-                }
+                if (cant > 0) mensaje += `✅ ${cant}x ${p.getAttribute('data-nombre')}\n`;
             });
-            mensaje += `━━━━━━━━━━━━━━━━━━\n`;
-            mensaje += `💰 *TOTAL: RD$${total}*\n`;
+            mensaje += `\n💰 *TOTAL: RD$${total}*`;
         }
 
-        if(notas) {
-            mensaje += `\n📝 *NOTAS ADICIONALES:* \n${notas}\n`;
-        }
+        if(notas) mensaje += `\n\n📝 *NOTAS:* ${notas}`;
         
-        mensaje += `━━━━━━━━━━━━━━━━━━\n`;
-        if(tipo === 'recogida') mensaje += `_Estaré allá en 15-20 min._`;
-
-        let url = `https://whatsapp.com{encodeURIComponent(mensaje)}`;
+        // AQUÍ ESTÁ TU NÚMERO PARA PRUEBAS
+        let miNumero = "18097214456"; 
+        let url = `https://whatsapp.com{miNumero}&text=${encodeURIComponent(mensaje)}`;
         window.open(url, '_blank');
     }
 </script>
