@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colmado El Baratón - Pedidos Online</title>
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <style>
+        :root { --primary: #e63946; --secondary: #1d3557; --light: #f1faee; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f4f4; margin: 0; padding-bottom: 80px; }
+        header { background: var(--secondary); color: white; text-align: center; padding: 20px; border-bottom: 4px solid var(--primary); }
+        .container { padding: 15px; max-width: 600px; margin: auto; }
+        
+        /* Productos */
+        .producto { background: white; border-radius: 10px; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .info h3 { margin: 0; font-size: 1.1rem; }
+        .info p { margin: 5px 0; color: var(--primary); font-weight: bold; }
+        .controles { display: flex; align-items: center; gap: 10px; }
+        button.qty { background: var(--secondary); color: white; border: none; border-radius: 5px; width: 30px; height: 30px; cursor: pointer; }
+        
+        /* Formulario */
+        .seccion-pedido { background: white; border-radius: 10px; padding: 20px; margin-top: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        input, select, textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+        
+        /* Botón Flotante */
+        .footer-total { position: fixed; bottom: 0; width: 100%; background: white; padding: 15px; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); text-align: center; box-sizing: border-box; }
+        .btn-enviar { background: #25d366; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-size: 1.1rem; font-weight: bold; cursor: pointer; width: 100%; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🛒 Colmado El Baratón</h1>
+    <p>¡Los mejores precios de la zona!</p>
+</header>
+
+<div class="container">
+    <!-- Lista de Productos (Puedes agregar más fácil copiando el div) -->
+    <div class="producto" data-nombre="Arroz Selecto (Lb)" data-precio="35">
+        <div class="info"><h3>Arroz Selecto (Lb)</h3><p>RD$35.00</p></div>
+        <div class="controles">
+            <button class="qty" onclick="cambiarCant(this, -1)">-</button>
+            <span class="cantidad">0</span>
+            <button class="qty" onclick="cambiarCant(this, 1)">+</h3>
+        </div>
+    </div>
+
+    <div class="producto" data-nombre="Aceite 16oz" data-precio="95">
+        <div class="info"><h3>Aceite 16oz</h3><p>RD$95.00</p></div>
+        <div class="controles">
+            <button class="qty" onclick="cambiarCant(this, -1)">-</button>
+            <span class="cantidad">0</span>
+            <button class="qty" onclick="cambiarCant(this, 1)">+</h3>
+        </div>
+    </div>
+
+    <!-- Datos del Cliente -->
+    <div class="seccion-pedido">
+        <h3>Datos para el pedido</h3>
+        <input type="text" id="nombreCliente" placeholder="Su Nombre (Obligatorio)">
+        <select id="tipoEntrega" onchange="toggleDireccion()">
+            <option value="delivery">Envío por Delivery 🛵</option>
+            <option value="recogida">Pasaré a buscarlo 🏃‍♂️</option>
+        </select>
+        <textarea id="direccion" placeholder="Dirección exacta o referencia..."></textarea>
+        <p id="notaRecogida" style="display:none; color:red; font-size: 0.8rem;">* Nota: Si no llega en 30 min, el pedido se cancela.</p>
+    </div>
+</div>
+
+<div class="footer-total">
+    <div style="margin-bottom: 10px;"><strong>Total: RD$<span id="totalGral">0</span></strong></div>
+    <button class="btn-enviar" onclick="enviarWhatsApp()">
+        <i class="fab fa-whatsapp"></i> ENVIAR PEDIDO
+    </button>
+</div>
+
+<script>
+    let total = 0;
+
+    function cambiarCant(btn, cambio) {
+        let span = btn.parentElement.querySelector('.cantidad');
+        let cant = parseInt(span.innerText) + cambio;
+        if (cant < 0) cant = 0;
+        span.innerText = cant;
+        calcularTotal();
+    }
+
+    function calcularTotal() {
+        total = 0;
+        document.querySelectorAll('.producto').forEach(p => {
+            let cant = parseInt(p.querySelector('.cantidad').innerText);
+            let precio = parseInt(p.getAttribute('data-precio'));
+            total += (cant * precio);
+        });
+        document.getElementById('totalGral').innerText = total;
+    }
+
+    function toggleDireccion() {
+        let tipo = document.getElementById('tipoEntrega').value;
+        document.getElementById('direccion').style.display = (tipo === 'delivery') ? 'block' : 'none';
+        document.getElementById('notaRecogida').style.display = (tipo === 'recogida') ? 'block' : 'none';
+    }
+
+    function enviarWhatsApp() {
+        let nombre = document.getElementById('nombreCliente').value;
+        let tipo = document.getElementById('tipoEntrega').value;
+        let dir = document.getElementById('direccion').value;
+        
+        if (!nombre) { alert("Por favor, ponga su nombre."); return; }
+        if (total === 0) { alert("Agregue al menos un producto."); return; }
+
+        let mensaje = `*¡Nuevo Pedido para El Baratón!* 🛒\n`;
+        mensaje += `-------------------------\n`;
+        mensaje += `👤 *Cliente:* ${nombre}\n`;
+        mensaje += `🛵 *Tipo:* ${tipo === 'delivery' ? 'Delivery' : 'Recogida'}\n`;
+        if(tipo === 'delivery') mensaje += `📍 *Dir:* ${dir}\n`;
+        mensaje += `-------------------------\n`;
+        mensaje += `*DETALLE:*\n`;
+
+        document.querySelectorAll('.producto').forEach(p => {
+            let cant = parseInt(p.querySelector('.cantidad').innerText);
+            if (cant > 0) {
+                let nom = p.getAttribute('data-nombre');
+                let sub = cant * parseInt(p.getAttribute('data-precio'));
+                mensaje += `- ${cant}x ${nom} (RD$${sub})\n`;
+            }
+        });
+
+        mensaje += `-------------------------\n`;
+        mensaje += `💰 *TOTAL: RD$${total}*\n`;
+        mensaje += `-------------------------\n`;
+        if(tipo === 'recogida') mensaje += `_Estaré allá en 20 minutos._`;
+
+        let url = `https://whatsapp.com{encodeURIComponent(mensaje)}`;
+        window.open(url, '_blank');
+    }
+</script>
+
+</body>
+</html>
