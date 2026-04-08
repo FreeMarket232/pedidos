@@ -113,10 +113,12 @@
 
 <div class="footer-total">
     <div style="margin-bottom: 10px;">Total: <strong>RD$<span id="totalGral">0</span></strong></div>
-    <button class="btn-enviar" onclick="enviarWhatsApp()">
+    <!-- Cambiamos el botón por un enlace directo 'id=btnWhatsapp' -->
+    <a id="linkWhatsapp" href="#" class="btn-enviar" style="text-decoration: none;">
         <i class="fab fa-whatsapp"></i> ENVIAR PEDIDO
-    </button>
+    </a>
 </div>
+>
 
 <script>
     let total = 0;
