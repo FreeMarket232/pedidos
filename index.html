@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super Colmado El Baratón 🇩🇴</title>
+    <title>Super Colmado El Baratón v1.8.9 🇩🇴</title>
+    
+    <link rel="preload" as="image" href="https://i.ibb.co/WpDJBMXm/Gffemini-Generated-Image-z5iozfz5iozfz5io.png">
     
     <meta property="og:title" content="Super Colmado El Baratón 🇩🇴">
     <meta property="og:description" content="Provisiones siempre frescas. ¡Haga su pedido aquí rápido y fácil!">
@@ -18,33 +20,48 @@
     <style>
         :root { --primary: #cf2027; --secondary: #002d62; --whatsapp: #25d366; --bg: #f4f7f6; --text: #333; --card-bg: #ffffff; }
         .dark-mode { --bg: #121212; --text: #ffffff; --card-bg: #1e1e1e; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: var(--text); padding-bottom: 140px; transition: 0.3s; }
+        
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: var(--text); padding-bottom: 140px; transition: 0.3s; font-display: swap; }
+        
+        /* PORTADA AJUSTADA */
+        .welcome-header { width: 100%; max-height: 200px; overflow: hidden; background: #eee; }
         .welcome-header img { width: 100%; height: auto; display: block; border-bottom: 4px solid var(--primary); }
-        #pwa-banner { background: #fff3cd; color: #856404; padding: 12px; border-bottom: 2px solid #ffeeba; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; }
-        #pwa-banner button { background: var(--secondary); color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
-        .brand-info { background: var(--card-bg); display: grid; grid-template-columns: 1fr 1.5fr 1fr; align-items: center; padding: 12px; gap: 10px; text-align: center; border-bottom: 1px solid #eee; }
-        .side-txt { font-size: 0.65rem; font-weight: bold; color: var(--secondary); line-height: 1.2; }
-        .center-txt h1 { margin: 0; font-size: 1.1rem; color: var(--primary); text-transform: uppercase; }
-        .theme-btn { background: var(--secondary); color: white; border: none; padding: 5px 10px; border-radius: 12px; font-size: 0.6rem; cursor: pointer; margin-top: 5px; }
+
+        /* AVISO DE INSTALACIÓN */
+        #pwa-banner { background: #fff3cd; color: #856404; padding: 10px; border-bottom: 2px solid #ffeeba; display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; }
+        #pwa-banner button { background: var(--secondary); color: white; border: none; padding: 4px 8px; border-radius: 5px; cursor: pointer; font-size: 0.7rem; }
+
+        /* INFORMACIÓN DE MARCA FINA */
+        .brand-info { background: var(--card-bg); display: grid; grid-template-columns: 1fr 1.5fr 1fr; align-items: center; padding: 10px; gap: 5px; text-align: center; border-bottom: 1px solid #eee; }
+        .side-txt { font-size: 0.6rem; font-weight: bold; color: var(--secondary); line-height: 1.1; }
+        .center-txt h1 { margin: 0; font-size: 1rem; color: var(--primary); text-transform: uppercase; }
+        .theme-btn { background: var(--secondary); color: white; border: none; padding: 4px 8px; border-radius: 10px; font-size: 0.55rem; cursor: pointer; margin-top: 4px; }
+
         .sticky-nav { position: sticky; top: 0; z-index: 1000; background: var(--card-bg); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        #buscador { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 25px; outline: none; background: var(--bg); color: var(--text); }
-        .nav-categorias { display: flex; overflow-x: auto; padding: 10px; gap: 8px; border-top: 1px solid #eee; }
+        #buscador { width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 20px; outline: none; background: var(--bg); color: var(--text); font-size: 0.9rem; }
+        
+        .nav-categorias { display: flex; overflow-x: auto; padding: 8px; gap: 6px; border-top: 1px solid #eee; }
         .nav-categorias::-webkit-scrollbar { display: none; }
-        .nav-categorias button { background: #eee; border: none; padding: 6px 15px; border-radius: 20px; font-weight: bold; white-space: nowrap; cursor: pointer; color: #555; font-size: 0.75rem; }
+        .nav-categorias button { background: #eee; border: none; padding: 5px 12px; border-radius: 15px; font-weight: bold; white-space: nowrap; cursor: pointer; color: #555; font-size: 0.7rem; }
         .nav-categorias button.active { background: var(--secondary); color: white; }
-        .grid-productos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
-        .card { background: var(--card-bg); border-radius: 12px; padding: 10px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: space-between; }
-        .img-wrapper { width: 100%; height: 90px; border-radius: 8px; overflow: hidden; margin-bottom: 8px; background: #fff; }
+
+        /* GRID PRODUCTOS COMPACTO */
+        .grid-productos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; }
+        .card { background: var(--card-bg); border-radius: 10px; padding: 8px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.08); display: flex; flex-direction: column; justify-content: space-between; }
+        .img-wrapper { width: 100%; height: 85px; border-radius: 6px; overflow: hidden; margin-bottom: 6px; background: #fff; }
         .img-prod { width: 100%; height: 100%; object-fit: cover; }
-        .precio-input { width: 55px; padding: 3px; text-align: center; border: 1px solid #ddd; border-radius: 5px; font-weight: bold; color: var(--primary); }
-        .btn-add { background: var(--secondary); color: white; border: none; padding: 8px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; font-size: 0.75rem; }
-        .btn-nota-flotante { position: fixed; bottom: 85px; right: 20px; background: #ffeb3b; color: #333; padding: 12px 18px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 1001; cursor: pointer; border: 2px solid #fbc02d; display: flex; align-items: center; gap: 8px; font-size: 0.8rem; animation: bounce 2s infinite; }
+        
+        .precio-input { width: 50px; padding: 2px; text-align: center; border: 1px solid #ddd; border-radius: 4px; font-weight: bold; color: var(--primary); font-size: 0.8rem; }
+        .btn-add { background: var(--secondary); color: white; border: none; padding: 6px; border-radius: 5px; font-weight: bold; cursor: pointer; width: 100%; font-size: 0.7rem; }
+
+        .btn-nota-flotante { position: fixed; bottom: 80px; right: 15px; background: #ffeb3b; color: #333; padding: 10px 15px; border-radius: 25px; font-weight: bold; box-shadow: 0 3px 10px rgba(0,0,0,0.15); z-index: 1001; cursor: pointer; font-size: 0.75rem; border: 2px solid #fbc02d; animation: bounce 2s infinite; }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-        .footer-fijo { position: fixed; bottom: 15px; left: 5%; width: 90%; background: #111; color: white; padding: 15px; border-radius: 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; cursor: pointer; box-sizing: border-box;}
-        #pantalla-carrito, #pantalla-nota { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg); z-index:2000; padding:20px; box-sizing:border-box; overflow-y:auto; }
-        .box-banco { background: #e3f2fd; padding: 15px; border-radius: 10px; border-left: 5px solid var(--secondary); margin-top: 10px; font-size: 0.8rem; color: #333; }
-        .btn-final { background: var(--whatsapp); color:white; border:none; width:100%; padding:15px; border-radius:10px; font-weight:bold; margin-top:20px; cursor: pointer; }
-        .btn-final:disabled { background: #ccc; cursor: not-allowed; }
+
+        .footer-fijo { position: fixed; bottom: 12px; left: 5%; width: 90%; background: #111; color: white; padding: 12px; border-radius: 40px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; cursor: pointer; box-sizing: border-box; font-size: 0.9rem;}
+        
+        #pantalla-carrito, #pantalla-nota { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg); z-index:2000; padding:15px; box-sizing:border-box; overflow-y:auto; }
+        .box-banco { background: #e3f2fd; padding: 12px; border-radius: 8px; border-left: 4px solid var(--secondary); margin-top: 8px; font-size: 0.75rem; color: #333; }
+        .btn-final { background: var(--whatsapp); color:white; border:none; width:100%; padding:12px; border-radius:8px; font-weight:bold; margin-top:15px; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -62,7 +79,7 @@
     <div class="side-txt">📞 849-520-9967</div>
     <div class="center-txt">
         <h1>El Baratón</h1>
-        <div style="background: #e8f5e9; color: #2e7d32; padding: 4px 8px; border-radius: 10px; font-size: 0.65rem; font-weight: bold; margin-top: 5px; display: inline-block; border: 1px solid #c8e6c9;">
+        <div style="background: #e8f5e9; color: #2e7d32; padding: 3px 6px; border-radius: 8px; font-size: 0.55rem; font-weight: bold; margin-top: 3px; display: inline-block; border: 1px solid #c8e6c9;">
             ✅ <span id="contador-pedidos">347</span> pedidos entregados
         </div>
         <br>
@@ -72,7 +89,7 @@
 </div>
 
 <div class="sticky-nav">
-    <div style="padding:10px 15px"><input type="text" id="buscador" placeholder="🔍 ¿Qué desea pedir?" onkeyup="buscarProducto()"></div>
+    <div style="padding:8px 12px"><input type="text" id="buscador" placeholder="🔍 ¿Qué desea pedir?" onkeyup="buscarProducto()"></div>
     <div class="nav-categorias">
         <button class="active" onclick="filtrar('todos')">Todos</button>
         <button onclick="filtrar('carnes')">Carnes</button>
@@ -89,51 +106,49 @@
 <div class="footer-fijo" onclick="abrirCarrito()"><span>🛒 BOLSA (<span id="count">0</span>)</span><strong>RD$ <span id="total-f">0</span></strong></div>
 
 <div id="pantalla-nota">
-    <button onclick="cerrarNota()" style="float:right; border:none; background:none; font-size:2rem; color:var(--text)">✕</button>
-    <h2>¿Qué más le mando? 🤔</h2>
-    <textarea id="nota-especial" oninput="validarFormulario()" rows="6" style="width:100%; border:2px solid #fbc02d; background: #fffde7; border-radius: 12px; padding: 15px; font-size: 1rem; outline: none;" placeholder="Ej: Carbón, hielo, limones..."></textarea>
-    <button style="background:var(--secondary); color:white; border:none; width:100%; padding:15px; border-radius:10px; font-weight:bold; margin-top:20px;" onclick="cerrarNota()">GUARDAR NOTA</button>
+    <button onclick="cerrarNota()" style="float:right; border:none; background:none; font-size:1.5rem; color:var(--text)">✕</button>
+    <h3>¿Qué más te mando? 🤔</h3>
+    <textarea id="nota-especial" oninput="validarFormulario()" rows="5" style="width:100%; border:2px solid #fbc02d; background: #fffde7; border-radius: 10px; padding: 12px; font-size: 0.9rem; outline: none;" placeholder="Ej: Carbón, hielo, limones..."></textarea>
+    <button style="background:var(--secondary); color:white; border:none; width:100%; padding:12px; border-radius:8px; font-weight:bold; margin-top:15px;" onclick="cerrarNota()">GUARDAR NOTA</button>
 </div>
 
 <div id="pantalla-carrito">
-    <button onclick="cerrar()" style="float:right; border:none; background:none; font-size: 2rem; color:var(--text)">✕</button>
-    <h2>Confirmar Pedido</h2>
-    <div id="items-lista" style="font-size: 0.9rem; margin-bottom: 15px; color:var(--text);"></div>
-    <div style="background: rgba(0,0,0,0.05); padding: 15px; border-radius: 10px; font-weight: bold;"><div style="display:flex; justify-content: space-between;"><span>Total:</span> <span>RD$ <span id="total-m">0</span></span></div></div>
-    <div style="margin-top: 20px;">
-        <input type="text" id="nombre-cliente" oninput="validarFormulario()" placeholder="Tu Nombre (Obligatorio)" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; margin-bottom:12px;">
-        <select id="entrega" onchange="gestionarEntrega()" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; margin-bottom:12px;"><option value="Pasaré a recoger">Pasaré a recoger</option><option value="Delivery">Envío a domicilio (Delivery)</option></select>
-        <div id="campo-direccion" style="display:none; margin-bottom:12px;"><input type="text" id="direccion-cliente" oninput="validarFormulario()" placeholder="Dirección Completa (Obligatorio)" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px;"></div>
-        <select id="pago" onchange="mostrarBanco()" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px;"><option value="Efectivo">Efectivo</option><option value="Transferencia">Transferencia Bancaria</option></select>
-        
-        <div id="info-banco" style="display:none;" class="box-banco">
-            <strong>🏦 DATOS BANCARIOS:</strong><br>
-            • Banreservas: 9607923649 (Joel de la cruz)<br>
-            • Popular: 848757324 (Wascar Pérez)<br><br>
-            <strong>⚠️ IMPORTANTE:</strong> Solo transferencias instantáneas (LBTR). Favor enviar comprobante ahora para confirmar despacho.
-        </div>
-        
+    <button onclick="cerrar()" style="float:right; border:none; background:none; font-size: 1.5rem; color:var(--text)">✕</button>
+    <h3>Confirmar Pedido</h3>
+    <div id="items-lista" style="font-size: 0.85rem; margin-bottom: 12px; color:var(--text);"></div>
+    <div style="background: rgba(0,0,0,0.05); padding: 12px; border-radius: 8px; font-weight: bold;"><div style="display:flex; justify-content: space-between;"><span>Total:</span> <span>RD$ <span id="total-m">0</span></span></div></div>
+    <div style="margin-top: 15px;">
+        <input type="text" id="nombre-cliente" oninput="validarFormulario()" placeholder="Tu Nombre (Obligatorio)" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px; margin-bottom:10px; font-size: 0.9rem;">
+        <select id="entrega" onchange="gestionarEntrega()" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px; margin-bottom:10px; font-size: 0.9rem;"><option value="Pasaré a recoger">Pasaré a recoger</option><option value="Delivery">Envío a domicilio (Delivery)</option></select>
+        <div id="campo-direccion" style="display:none; margin-bottom:10px;"><input type="text" id="direccion-cliente" oninput="validarFormulario()" placeholder="Dirección Exacta (Obligatorio)" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px; font-size: 0.9rem;"></div>
+        <select id="pago" onchange="mostrarBanco()" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px; font-size: 0.9rem;"><option value="Efectivo">Efectivo</option><option value="Transferencia">Transferencia Bancaria</option></select>
+        <div id="info-banco" style="display:none;" class="box-banco"><strong>🏦 DATOS BANCARIOS:</strong><br>• Banreservas: 9607923649 (Joel de la cruz)<br>• Popular: 848757324 (Wascar Pérez)<br><br><small>⚠️ Solo transferencias instantáneas (LBTR). Favor enviar comprobante.</small></div>
         <button id="btn-finalizar" disabled onclick="enviar()" class="btn-final">🚀 PEDIR POR WHATSAPP</button>
     </div>
 </div>
 
-<script> // SISTEMA VIVO DE CONTADOR
-    let pedidosBase = parseInt(localStorage.getItem('pedidosExito')) || 347;
-    document.addEventListener("DOMContentLoaded", () => {
-        document.getElementById('contador-pedidos').innerText = pedidosBase.toLocaleString();
+<script>
+    // SISTEMA VIVO DE CONTADOR
+    window.addEventListener('load', () => {
+        let pedidosBase = parseInt(localStorage.getItem('pedidosExito')) || 347;
+        const cont = document.getElementById('contador-pedidos');
+        if(cont) cont.innerText = pedidosBase.toLocaleString();
     });
 
     function registrarPedidoExito() {
-        pedidosBase++;
-        localStorage.setItem('pedidosExito', pedidosBase);
-        document.getElementById('contador-pedidos').innerText = pedidosBase.toLocaleString();
+        let pedidosActuales = parseInt(localStorage.getItem('pedidosExito')) || 347;
+        pedidosActuales++;
+        localStorage.setItem('pedidosExito', pedidosActuales);
+        const cont = document.getElementById('contador-pedidos');
+        if(cont) cont.innerText = pedidosActuales.toLocaleString();
     }
+
     const productos = [
         { id: 1, nombre: "Pollo Fresco", precioBase: 80, precio: 80, cat: "carnes", img: "https://i.ibb.co/B5hRZB7C/pexels-karyna-panchenko-10842246.jpg" },
         { id: 2, nombre: "Chuleta Ahumada", precioBase: 140, precio: 140, cat: "carnes", img: "https://i.ibb.co/5xSZJNcn/pexels-osmanarabaciart-26857721.jpg" },
         { id: 3, nombre: "Cerdo Cruda", precioBase: 140, precio: 140, cat: "carnes", img: "https://i.ibb.co/tMdd77Tq/pexels-filirovska-8251005.jpg" },
         { id: 4, nombre: "Costillas Ahumadas", precioBase: 165, precio: 165, cat: "carnes", img: "https://i.ibb.co/DfzvYM4R/green-com-do-costilla-ahumada.png" },
-        { id: 6, nombre: "Queso de Hoja", precioBase: 165, precio: 165, cat: "quesos", img: "https://i.ibb.co/SD50h7Qy/images.png" },
+        { id: 6, nombre: "Queso de Hoja", precioBase: 165, precio: 165, cat: "quesos", img: "https://i.ibb.co/SD50h7y/images.png" },
         { id: 7, nombre: "Queso Cheddar", precioBase: 220, precio: 220, cat: "quesos", img: "https://i.ibb.co/wNkzxFdJ/41-RLHOUIQGL-AC-UF1000-1000-QL80.png" },
         { id: 8, nombre: "Queso Gouda", precioBase: 280, precio: 280, cat: "quesos", img: "https://i.ibb.co/QjMZ0fjq/images-1.png" },
         { id: 10, nombre: "Arroz Selecto", precioBase: 40, precio: 40, cat: "granos", img: "https://images.unsplash.com/photo-1586201375761-83865001e31c?q=80&w=400&auto=format&fit=crop" },
@@ -152,7 +167,7 @@
         const grid = document.getElementById('lista-p');
         grid.innerHTML = lista.map(p => {
             const cant = carrito[p.id] ? carrito[p.id].cant : 0;
-            return `<div class="card"><div class="img-wrapper"><img src="${p.img}" class="img-prod" onerror="this.src='https://via.placeholder.com/150?text=${p.nombre}'"></div><h3>${p.nombre}</h3><div class="precio-input-container">RD$ <input type="number" class="precio-input" value="${p.precio}" onchange="validarPrecio(${p.id}, this.value)"></div><div style="display:flex; justify-content:center; gap:8px;">${cant > 0 ? `<button class="btn-mini" onclick="modCantidad(${p.id},-1)">-</button><span style="font-weight:bold; line-height:30px;">${cant}</span><button class="btn-mini" onclick="modCantidad(${p.id},1)">+</button>` : `<button class="btn-add" onclick="modCantidad(${p.id},1)">AGREGAR</button>`}</div></div>`;
+            return `<div class="card"><div class="img-wrapper"><img src="${p.img}" loading="lazy" class="img-prod" onerror="this.src='https://via.placeholder.com/150?text=${p.nombre}'"></div><h4 style="margin:4px 0; font-size:0.75rem;">${p.nombre}</h4><div style="font-size:0.75rem;">RD$ <input type="number" class="precio-input" value="${p.precio}" onchange="validarPrecio(${p.id}, this.value)"></div><div style="display:flex; justify-content:center; gap:5px; margin-top:5px;">${cant > 0 ? `<button class="btn-mini" onclick="modCantidad(${p.id},-1)" style="padding:2px 8px;">-</button><span style="font-weight:bold; font-size:0.8rem;">${cant}</span><button class="btn-mini" onclick="modCantidad(${p.id},1)" style="padding:2px 8px;">+</button>` : `<button class="btn-add" onclick="modCantidad(${p.id},1)">AGREGAR</button>`}</div></div>`;
         }).join('');
     }
 
@@ -173,13 +188,20 @@
 
     function modCantidad(id, c) { if (!carrito[id]) carrito[id] = { ...productos.find(x => x.id === id), cant: 0 }; carrito[id].cant += c; if (carrito[id].cant <= 0) delete carrito[id]; actualizar(); renderizar(productos); }
     function actualizar() { let t = 0, c = 0; for (let id in carrito) { t += carrito[id].precio * carrito[id].cant; c += carrito[id].cant; } document.getElementById('total-f').innerText = t; document.getElementById('total-m').innerText = t; document.getElementById('count').innerText = c; validarFormulario(); }
-    function abrirCarrito() { const nota = document.getElementById('nota-especial').value.trim(); if (Object.keys(carrito).length === 0 && nota.length === 0) return alert("Bolsa vacía."); const div = document.getElementById('items-lista'); div.innerHTML = ""; for (let id in carrito) div.innerHTML += `<div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #eee; color:var(--text);"><span>${carrito[id].nombre} (x${carrito[id].cant})</span><b>RD$ ${carrito[id].precio * carrito[id].cant}</b></div>`; document.getElementById('pantalla-carrito').style.display = 'block'; }
+    
+    function abrirCarrito() { 
+        const nota = document.getElementById('nota-especial').value.trim(); 
+        if (Object.keys(carrito).length === 0 && nota.length === 0) return alert("Bolsa vacía."); 
+        const div = document.getElementById('items-lista'); div.innerHTML = ""; 
+        for (let id in carrito) div.innerHTML += `<div style="display:flex; justify-content:space-between; padding:5px 0; border-bottom:1px solid #eee;"><span>${carrito[id].nombre} (x${carrito[id].cant})</span><b>RD$ ${carrito[id].precio * carrito[id].cant}</b></div>`; 
+        document.getElementById('pantalla-carrito').style.display = 'block'; 
+    }
     
     function enviar() {
         const n = document.getElementById('nombre-cliente').value; const e = document.getElementById('entrega').value; const d = document.getElementById('direccion-cliente').value; const p = document.getElementById('pago').value; const nota = document.getElementById('nota-especial').value;
-        let msg = `*NUEVO PEDIDO*%0A*Cliente:* ${n}%0A*Entrega:* ${e}%0A`; if (e.includes('Delivery')) msg += `*Dirección:* ${d}%0A`; msg += `*Pago:* ${p}%0A`; if (nota) msg += `%0A*NOTA EXTRA:*%0A${nota}%0A`; msg += `%0A*PRODUCTOS:*%0A`; for (let id in carrito) msg += `- ${carrito[id].cant}x ${carrito[id].nombre} (RD$ ${carrito[id].precio})%0A`; 
-        msg += `%0A*TOTAL: RD$ ${document.getElementById('total-m').innerText}*%0A%0A`;
-        if (p === 'Transferencia') msg += `_⚠️ Favor enviar comprobante ahora para confirmar despacho._`;
+        let msg = `*ORDEN EL BARATÓN*%0A*Cliente:* ${n}%0A*Entrega:* ${e}%0A`; if (e.includes('Delivery')) msg += `*Dirección:* ${d}%0A`; msg += `*Pago:* ${p}%0A`; if (nota) msg += `%0A*NOTA EXTRA:*%0A${nota}%0A`; msg += `%0A*PRODUCTOS:*%0A`; for (let id in carrito) msg += `- ${carrito[id].cant}x ${carrito[id].nombre} (RD$ ${carrito[id].precio})%0A`; 
+        msg += `%0A*TOTAL: RD$ ${document.getElementById('total-m').innerText}*%0A%0A_⚠️ Favor enviar captura del comprobante ahora para confirmar._`;
+        
         registrarPedidoExito(); // Sube el número automáticamente
         window.open(`https://wa.me/18097214456?text=${msg}`);
     }
