@@ -62,6 +62,10 @@
     <div class="side-txt">📞 849-520-9967</div>
     <div class="center-txt">
         <h1>El Baratón</h1>
+        <div style="background: #e8f5e9; color: #2e7d32; padding: 4px 8px; border-radius: 10px; font-size: 0.65rem; font-weight: bold; margin-top: 5px; display: inline-block; border: 1px solid #c8e6c9;">
+            ✅ <span id="contador-pedidos">347</span> pedidos entregados
+        </div>
+        <br>
         <button class="theme-btn" onclick="toggleTheme()">🌓 Tema</button>
     </div>
     <div class="side-txt">📍 Los Frailes II<br>Sto. Dgo. Este</div>
@@ -113,7 +117,17 @@
     </div>
 </div>
 
-<script>
+<script> // SISTEMA VIVO DE CONTADOR
+    let pedidosBase = parseInt(localStorage.getItem('pedidosExito')) || 347;
+    document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById('contador-pedidos').innerText = pedidosBase.toLocaleString();
+    });
+
+    function registrarPedidoExito() {
+        pedidosBase++;
+        localStorage.setItem('pedidosExito', pedidosBase);
+        document.getElementById('contador-pedidos').innerText = pedidosBase.toLocaleString();
+    }
     const productos = [
         { id: 1, nombre: "Pollo Fresco", precioBase: 80, precio: 80, cat: "carnes", img: "https://i.ibb.co/B5hRZB7C/pexels-karyna-panchenko-10842246.jpg" },
         { id: 2, nombre: "Chuleta Ahumada", precioBase: 140, precio: 140, cat: "carnes", img: "https://i.ibb.co/5xSZJNcn/pexels-osmanarabaciart-26857721.jpg" },
@@ -163,9 +177,10 @@
     
     function enviar() {
         const n = document.getElementById('nombre-cliente').value; const e = document.getElementById('entrega').value; const d = document.getElementById('direccion-cliente').value; const p = document.getElementById('pago').value; const nota = document.getElementById('nota-especial').value;
-        let msg = `*NUEVO PEDIDO*%0A*Cliente:* ${n}%0A*Entrega:* ${e}%0A`; if (e.includes('Delivery')) msg += `*Dirección:* ${d}%0A`; msg += `*Pago:* ${p}%0A`; if (nota) msg += `%0A*NOTA EXTRA:*%0A${nota}%0A`; msg += `%0A*PRODUCTOS:*%0A`; for (let id in carrito) msg += `- ${carrito[id].cant}x ${carrito[id].nombre} (RD$ ${carrito[id].precio})%0A`; 
+        let msg = `*ORDEN EL BARATÓN*%0A*Cliente:* ${n}%0A*Entrega:* ${e}%0A`; if (e.includes('Delivery')) msg += `*Dirección:* ${d}%0A`; msg += `*Pago:* ${p}%0A`; if (nota) msg += `%0A*NOTA EXTRA:*%0A${nota}%0A`; msg += `%0A*PRODUCTOS:*%0A`; for (let id in carrito) msg += `- ${carrito[id].cant}x ${carrito[id].nombre} (RD$ ${carrito[id].precio})%0A`; 
         msg += `%0A*TOTAL: RD$ ${document.getElementById('total-m').innerText}*%0A%0A`;
-        if (p === 'Transferencia') msg += `_⚠ Favor enviar comprobante ahora para confirmar despacho._`;
+        if (p === 'Transferencia') msg += `_⚠️ Favor enviar comprobante ahora para confirmar despacho._`;
+        registrarPedidoExito(); // Sube el número automáticamente
         window.open(`https://wa.me/18097214456?text=${msg}`);
     }
     
