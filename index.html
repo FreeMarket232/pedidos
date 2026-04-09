@@ -3,174 +3,288 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Colmado Digital - DEMO</title>
-    <!-- Icono de la pestaña -->
-    <link rel="icon" href="https://flaticon.com" type="image/x-icon">
-    <!-- Iconos FontAwesome -->
-    <link rel="stylesheet" href="https://cloudflare.com">
+    <title>Mi Colmado Pro v1.5.3 🇩🇴</title>
     <style>
-        :root { --primary: #27ae60; --dark: #2c3e50; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f0f2f5; padding-bottom: 30px; }
-        header { background: var(--primary); color: white; padding: 15px; text-align: center; border-radius: 0 0 20px 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .container { padding: 15px; }
+        :root { --primary: #cf2027; --secondary: #002d62; --whatsapp: #25d366; --bg: #f4f7f6; --muted: #6c757d; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: #333; padding-bottom: 160px; }
         
-        /* Logo Central */
-        .logo-central { text-align: center; margin-top: 15px; margin-bottom: 20px; }
-        .logo-img { width: 100px; height: 100px; border-radius: 50%; border: 4px solid white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); object-fit: cover; }
+        /* HEADER MEJORADO CON IMAGEN DE FONDO */
+        .hero-header { 
+            height: 180px; 
+            background: linear-gradient(rgba(0,45,98,0.7), rgba(207,32,39,0.7)), url('https://images.unsplash.com/photo-1534723452862-4c874018d66d?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .hero-header h1 { 
+            margin: 0; 
+            font-size: 1.8rem; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 1px;
+        }
 
-        /* Tarjetas de Producto */
-        .card { background: white; border-radius: 12px; padding: 10px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .img-prod { width: 70px; height: 70px; border-radius: 8px; object-fit: cover; background: #eee; }
-        .prod-info { flex-grow: 1; }
-        .prod-info h3 { margin: 0; font-size: 15px; }
-        .prod-info p { margin: 3px 0; color: var(--primary); font-weight: bold; }
-        .btn-add { background: var(--primary); color: white; border: none; width: 35px; height: 35px; border-radius: 8px; font-size: 18px; cursor: pointer; }
+        .hero-header p {
+            margin: 5px 0 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .search-container { padding: 10px 15px; background: white; position: sticky; top: 180px; z-index: 999; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        #buscador { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 25px; box-sizing: border-box; outline: none; }
+
+        .nav-categorias { display: flex; overflow-x: auto; padding: 12px; background: white; gap: 10px; position: sticky; top: 247px; z-index: 998; border-bottom: 1px solid #eee; }
+        .nav-categorias::-webkit-scrollbar { display: none; }
+        .nav-categorias button { background: #eee; border: none; padding: 8px 15px; border-radius: 20px; font-weight: bold; white-space: nowrap; cursor: pointer; }
+        .nav-categorias button.active { background: var(--secondary); color: white; }
+
+        .contenedor { padding: 15px; }
+        .grid-productos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .card { background: white; border-radius: 12px; padding: 10px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; }
+        .img-wrapper { width: 100%; height: 100px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #f9f9f9; border-radius: 8px; }
+        .img-prod { max-width: 100%; max-height: 100%; object-fit: contain; }
         
-        /* Carrito */
-        .carrito-box { background: white; border-radius: 15px; padding: 15px; margin-top: 15px; border: 1px solid #ddd; }
-        .entrega-opciones { display: flex; gap: 10px; margin: 15px 0; }
-        .opcion { flex: 1; text-align: center; padding: 10px; border: 1px solid #ccc; border-radius: 10px; cursor: pointer; font-size: 14px; }
-        input[type="radio"] { display: none; }
-        input[type="radio"]:checked + label { background: var(--primary); color: white; border-color: var(--primary); }
+        .controles-card { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; }
+        .btn-mini { width: 30px; height: 30px; border-radius: 50%; border: 1px solid #ddd; background: white; font-weight: bold; cursor: pointer; }
+        .btn-add { background: var(--secondary); color: white; border: none; padding: 8px 15px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; }
+
+        .btn-nota-flotante { position: fixed; bottom: 85px; right: 20px; background: #ffeb3b; color: #333; padding: 12px 18px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 1001; cursor: pointer; border: 2px solid #fbc02d; display: flex; align-items: center; gap: 8px; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+        .footer-fijo { position: fixed; bottom: 15px; left: 5%; width: 90%; background: #111; color: white; padding: 15px; border-radius: 50px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 1000; cursor: pointer; box-sizing: border-box;}
         
-        input, textarea { width: 100%; padding: 12px; margin: 5px 0; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-family: inherit; font-size: 16px; }
-        .btn-ws { background: #25d366; color: white; width: 100%; padding: 15px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        #pantalla-carrito, #pantalla-variaciones, #pantalla-nota { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 2000; padding: 20px; box-sizing: border-box; overflow-y: auto; }
+        .item-car { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #eee; }
+        .btn-qty, .btn-sel { width: 35px; height: 35px; border-radius: 50%; border: 1px solid #ddd; background: white; font-weight: bold; cursor: pointer; }
+        .btn-final { background: var(--whatsapp); color: white; border: none; width: 100%; padding: 15px; border-radius: 10px; font-weight: bold; font-size: 1.1rem; margin-top: 10px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-<header>
-    <h2 style="margin:0;">🛒 Colmado el Baratón Digital</h2>
-    <p style="margin:0; font-size:12px;">Muestra de funcionamiento (DEMO)</p>
-</header>
+<div class="hero-header">
+    <h1>🇩🇴 MI COLMADO APP</h1>
+    <p>¡El final de los mandados!</p>
+</div>
 
-<div class="container">
-    <!-- Logo Central -->
-    <div class="logo-central">
-        <img src="https://i.ibb.co/3JH4MP7/Whisk-4f53ddd0af9692f98f5400992a5da9d6dr.jpg" alt="Logo" class="logo-img">
-        <h3 style="margin: 10px 0 0 0;">Colmado el Baratón</h3>
-    </div>
+<div class="search-container">
+    <input type="text" id="buscador" placeholder="🔍 Buscar arroz, chitos, jabón..." onkeyup="buscarProducto()">
+</div>
 
-    <!-- Catálogo -->
-    <div class="card">
-        <img src="https://i.ibb.co/gFfb5m2R/C-446.jpg" alt="Cerveza" class="img-prod">
-        <div class="prod-info">
-            <h3>Cerveza Presidente (G)</h3>
-            <p>RD$ 220.00</p>
-        </div>
-        <button class="btn-add" onclick="agregar('Presidente G.', 220)">+</button>
-    </div>
+<div class="nav-categorias">
+    <button class="active" onclick="filtrar('todos')">Todos</button>
+    <button onclick="filtrar('granos')">Granos/Víveres 🍚</button>
+    <button onclick="filtrar('bebidas')">Bebidas 🍺</button>
+    <button onclick="filtrar('picadera')">Picadera/Dulces 🍿</button>
+    <button onclick="filtrar('hogar')">Hogar/Cuidado 🧼</button>
+</div>
 
-    <div class="card">
-        <img src="https://i.ibb.co/whVC8S3R/CRISOL-16-OZ-1.png" alt="Aceite" class="img-prod">
-        <div class="prod-info">
-            <h3>Aceite Cocinero (1/2 Gal)</h3>
-            <p>RD$ 210.00</p>
-        </div>
-        <button class="btn-add" onclick="agregar('Aceite 1/2 Gal', 210)">+</button>
-    </div>
+<div class="contenedor">
+    <div class="grid-productos" id="lista-p"></div>
+</div>
 
-    <div class="card">
-        <img src="https://i.ibb.co/QvvhSRTB/8.png" alt="Arroz" class="img-prod">
-        <div class="prod-info">
-            <h3>Arroz Selecto (Lb)</h3>
-            <p>RD$ 35.00</p>
-        </div>
-        <button class="btn-add" onclick="agregar('Arroz Lb.', 35)">+</button>
-    </div>
+<div class="btn-nota-flotante" onclick="abrirNota()">
+    <span>🤔 ¿Falta algo?</span>
+</div>
 
-    <!-- Pedido -->
-    <div class="carrito-box">
-        <h4 style="margin:0;"><i class="fas fa-shopping-basket"></i> Tu Carrito:</h4>
-        <div id="lista-pedido" style="font-size: 14px; color: #555; margin: 10px 0;">No hay productos</div>
-        <div style="display:flex; justify-content:space-between; font-weight:bold; font-size: 18px;">
-            <span>TOTAL:</span>
-            <span>RD$ <span id="total-monto">0</span></span>
-        </div>
+<div class="footer-fijo" onclick="abrirCarrito()">
+    <span>🛒 MI BOLSA (<span id="count">0</span>)</span>
+    <strong>RD$ <span id="total-f">0</span></strong>
+</div>
 
+<div id="pantalla-nota">
+    <button onclick="cerrarNota()" style="float:right; border:none; background:none; font-size: 2rem;">✕</button>
+    <h2 style="margin-top: 40px;">¿Qué más te mando? 🤔</h2>
+    <textarea id="nota-especial" rows="6" style="width:100%; border:2px solid #fbc02d; background: #fffde7; border-radius: 12px; padding: 15px; font-size: 1rem; outline: none;" placeholder="Ej: 1 bolsa de hielo, 2 limones..."></textarea>
+    <button class="btn-final" style="background: var(--secondary); margin-top: 20px;" onclick="cerrarNota()">LISTO, GUARDAR</button>
+</div>
+
+<div id="pantalla-variaciones">
+    <button onclick="cerrarVariaciones()" style="float:right; border:none; background:none; font-size: 2rem;">✕</button>
+    <h2 id="var-titulo">Selecciona Tamaño</h2>
+    <div id="lista-variaciones"></div>
+</div>
+
+<div id="pantalla-carrito">
+    <button onclick="cerrar()" style="float:right; border:none; background:none; font-size: 2rem;">✕</button>
+    <h2>Tu Pedido</h2>
+    <div id="items-lista"></div>
+    
+    <div style="background: #f9f9f9; padding: 15px; border-radius: 10px; margin-top: 15px;">
+        <div style="display:flex; justify-content: space-between;"><span>Subtotal:</span> <span>RD$ <span id="subtotal-m">0</span></span></div>
+        <div style="display:flex; justify-content: space-between; font-weight: bold; color: var(--primary);"><span>Envío:</span> <span>RD$ <span id="delivery-m">0</span></span></div>
         <hr>
+        <div style="display:flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold;"><span>Total:</span> <span>RD$ <span id="total-m">0</span></span></div>
+    </div>
 
-        <p style="margin: 5px 0; font-weight: bold; font-size: 14px;">¿Cómo lo quieres?</p>
-        <div class="entrega-opciones">
-            <input type="radio" id="delivery" name="tipo_entrega" value="Delivery" checked>
-            <label for="delivery" class="opcion">🛵 Delivery</label>
-            <input type="radio" id="recogida" name="tipo_entrega" value="Pasar a buscar">
-            <label for="recogida" class="opcion">🏃 Pasar a buscar</label>
-        </div>
-
-        <input type="text" id="cliente" placeholder="Nombre del cliente">
-        <input type="text" id="direccion" placeholder="Dirección (si es Delivery)">
-        <textarea id="otros-productos" rows="2" placeholder="¿Algo más? (Ej: 2 mentas, aguacate...)"></textarea>
-
-        <button class="btn-ws" onclick="enviar()">
-            <i class="fab fa-whatsapp"></i> ENVIAR PEDIDO POR WHATSAPP
-        </button>
+    <div style="margin-top: 20px;">
+        <label>Tu Nombre</label>
+        <input type="text" id="nombre" style="width:100%; padding:12px; border-radius:8px; border:1px solid #ddd; margin-bottom:15px;">
+        <label>Entrega</label>
+        <select id="metodo-entrega" onchange="actualizarEnvio()" style="width:100%; padding:12px; border-radius:8px; border:1px solid #ddd; margin-bottom:15px;">
+            <option value="recogida">Pasaré a recoger (RD$ 0)</option>
+            <option value="delivery">Envío a casa (RD$ 50)</option>
+        </select>
+        <button id="btn-wha" class="btn-final" onclick="enviar()">🚀 ENVIAR POR WHATSAPP</button>
     </div>
 </div>
 
 <script>
-    let pedido = [];
-    let total = 0;
+    const productos = [
+        // GRANOS Y VÍVERES
+        { id: 101, nombre: "Arroz Selecto (Lb)", precio: 35, cat: "granos", img: "IMAGEN_AQUI" },
+        { id: 102, nombre: "Habichuelas Rojas (Lb)", precio: 65, cat: "granos", img: "IMAGEN_AQUI" },
+        { id: 107, nombre: "Plátano Verde (Ud)", precio: 25, cat: "granos", img: "IMAGEN_AQUI" },
+        
+        // BEBIDAS
+        { id: 1, nombre: "Refresco Coca-Cola", cat: "bebidas", img: "IMAGEN_AQUI", variaciones: [{t: "15oz", p: 25}, {t: "20oz", p: 35}, {t: "Biliguer (2L)", p: 90}] },
+        { id: 2, nombre: "Cerveza Presidente", cat: "bebidas", img: "IMAGEN_AQUI", variaciones: [{t: "Pequeña", p: 135}, {t: "Grande", p: 220}] },
+        
+        // PICADERA Y DULCES
+        { id: 201, nombre: "Chitos Queso (Paquete)", precio: 20, cat: "picadera", img: "IMAGEN_AQUI" },
+        { id: 202, nombre: "Galletas Hatuey (Paquete)", precio: 15, cat: "picadera", img: "IMAGEN_AQUI" },
+        { id: 203, nombre: "Menta de Guardia (Ud)", precio: 5, cat: "picadera", img: "IMAGEN_AQUI" },
+        
+        // HOGAR Y CUIDADO
+        { id: 301, nombre: "Papel Higiénico (Ud)", precio: 25, cat: "hogar", img: "IMAGEN_AQUI" },
+        { id: 302, nombre: "Jabón de Cuaba", precio: 45, cat: "hogar", img: "IMAGEN_AQUI" }
+    ];
 
-    function agregar(nombre, precio) {
-        pedido.push({nombre, precio});
-        total += precio;
-        render();
+    let carrito = {};
+    let costoEnvio = 0;
+
+    function buscarProducto() {
+        const query = document.getElementById('buscador').value.toLowerCase();
+        renderizar(productos.filter(p => p.nombre.toLowerCase().includes(query)));
     }
 
-    function borrar(index) {
-        total -= pedido[index].precio;
-        pedido.splice(index, 1);
-        render();
+    function filtrar(cat) {
+        document.getElementById('buscador').value = ""; 
+        renderizar(cat === 'todos' ? productos : productos.filter(p => p.cat === cat));
+        document.querySelectorAll('.nav-categorias button').forEach(b => b.classList.remove('active'));
+        if(event && event.target.tagName === 'BUTTON') event.target.classList.add('active');
     }
 
-    function render() {
-        const lista = document.getElementById('lista-pedido');
-        if(pedido.length === 0) {
-            lista.innerHTML = 'No hay productos';
-        } else {
-            lista.innerHTML = pedido.map((p, i) => `
-                <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-                    <span>- ${p.nombre}</span>
-                    <span>RD$ ${p.precio} <i class="fas fa-trash" style="color:red; cursor:pointer;" onclick="borrar(${i})"></i></span>
+    function renderizar(lista) {
+        const grid = document.getElementById('lista-p');
+        grid.innerHTML = lista.map(p => {
+            const cant = carrito[p.id] ? carrito[p.id].cant : 0;
+            return `
+            <div class="card">
+                <div class="img-wrapper"><img src="${p.img}" class="img-prod" onerror="this.src='https://via.placeholder.com/150?text=${p.nombre}'"></div>
+                <h3>${p.nombre}</h3>
+                <span class="precio">${p.variaciones ? 'Desde RD$ '+p.variaciones[0].p : 'RD$ '+p.precio}</span>
+                <div class="controles-card">
+                    ${cant > 0 ? `
+                        <button class="btn-mini" onclick="modificarCantidad(${p.id}, -1)">-</button>
+                        <span>${cant}</span>
+                        <button class="btn-mini" onclick="modificarCantidad(${p.id}, 1)">+</button>
+                    ` : `
+                        <button class="btn-add" onclick="iniciarAgregar(${p.id})">AGREGAR</button>
+                    `}
                 </div>
-            `).join('');
-        }
-        document.getElementById('total-monto').innerText = total;
+            </div>`;
+        }).join('');
     }
+
+    function iniciarAgregar(id) {
+        const p = productos.find(x => x.id === id);
+        if (p.variaciones) {
+            document.getElementById('var-titulo').innerText = p.nombre;
+            document.getElementById('lista-variaciones').innerHTML = p.variaciones.map(v => `
+                <div class="item-variacion">
+                    <span>${v.t} - RD$ ${v.p}</span>
+                    <button class="btn-sel" onclick="agregarConVariacion(${p.id}, '${v.t}', ${v.p})">+</button>
+                </div>`).join('');
+            document.getElementById('pantalla-variaciones').style.display = 'block';
+        } else {
+            modificarCantidad(id, 1);
+        }
+    }
+
+    function agregarConVariacion(id, tamano, precio) {
+        const key = id + '-' + tamano;
+        if (carrito[key]) carrito[key].cant++;
+        else carrito[key] = { nombre: productos.find(x => x.id === id).nombre + " (" + tamano + ")", precio: precio, cant: 1 };
+        actualizar(); cerrarVariaciones();
+    }
+
+    function modificarCantidad(id, cambio) {
+        if (!carrito[id]) {
+            const p = productos.find(x => x.id === id);
+            carrito[id] = { nombre: p.nombre, precio: p.precio, cant: 0 };
+        }
+        carrito[id].cant += cambio;
+        if (carrito[id].cant <= 0) delete carrito[id];
+        actualizar(); renderizar(productos);
+    }
+
+    function actualizar() {
+        let subtotal = 0, count = 0;
+        for (let id in carrito) { subtotal += carrito[id].precio * carrito[id].cant; count += carrito[id].cant; }
+        document.getElementById('total-f').innerText = subtotal + costoEnvio;
+        document.getElementById('subtotal-m').innerText = subtotal;
+        document.getElementById('total-m').innerText = subtotal + costoEnvio;
+        document.getElementById('count').innerText = count;
+    }
+
+    function actualizarEnvio() {
+        costoEnvio = (document.getElementById('metodo-entrega').value === 'delivery') ? 50 : 0;
+        document.getElementById('delivery-m').innerText = costoEnvio;
+        actualizar();
+    }
+
+    function abrirCarrito() {
+        const div = document.getElementById('items-lista');
+        div.innerHTML = Object.keys(carrito).length ? "" : "El carrito está vacío";
+        for (let id in carrito) {
+            div.innerHTML += `
+                <div class="item-car">
+                    <span>${carrito[id].nombre}</span>
+                    <div>
+                        <button class="btn-qty" onclick="modificarManual('${id}',-1)">-</button>
+                        <b style="margin:0 8px">${carrito[id].cant}</b>
+                        <button class="btn-qty" onclick="modificarManual('${id}',1)">+</button>
+                    </div>
+                </div>`;
+        }
+        document.getElementById('pantalla-carrito').style.display = 'block';
+    }
+
+    function modificarManual(id, d) {
+        if (carrito[id]) {
+            carrito[id].cant += d;
+            if (carrito[id].cant <= 0) delete carrito[id];
+            actualizar(); abrirCarrito(); renderizar(productos);
+        }
+    }
+
+    function abrirNota() { document.getElementById('pantalla-nota').style.display = 'block'; }
+    function cerrarNota() { document.getElementById('pantalla-nota').style.display = 'none'; }
+    function cerrar() { document.getElementById('pantalla-carrito').style.display = 'none'; }
+    function cerrarVariaciones() { document.getElementById('pantalla-variaciones').style.display = 'none'; }
 
     function enviar() {
-        const cliente = document.getElementById('cliente').value;
-        const direccion = document.getElementById('direccion').value;
-        const otros = document.getElementById('otros-productos').value;
-        const tipoEntrega = document.querySelector('input[name="tipo_entrega"]:checked').value;
-        const telf = "18097214456"; 
-
-        if(!cliente || (pedido.length === 0 && otros === "")) return alert("Faltan datos");
-
-        let texto = `*NUEVO PEDIDO*%0A`;
-        texto += `--------------------------%0A`;
-        texto += `*Cliente:* ${cliente}%0A`;
-        texto += `*Tipo:* ${tipoEntrega}%0A`;
-        if(tipoEntrega === "Delivery") { texto += `*Dirección:* ${direccion}%0A`; }
-        texto += `--------------------------%0A`;
-        
-        if(pedido.length > 0) {
-            texto += `*Productos:*%0A`;
-            pedido.forEach(p => texto += `- ${p.nombre} (RD$ ${p.precio})%0A`);
-            texto += `--------------------------%0A`;
-            texto += `*TOTAL ESTIMADO: RD$ ${total}*%0A`;
-        }
-
-        if(otros !== "") {
-            texto += `%0A*OTROS PEDIDOS:*%0A${otros}%0A`;
-        }
-
-        // LA URL CORREGIDA AQUÍ:
-        const url = "https://wa.me/" + telf + "?text=" + texto;
-        window.open(url, '_blank');
+        const n = document.getElementById('nombre').value;
+        const nota = document.getElementById('nota-especial').value;
+        if (!n) return alert("Pon tu nombre.");
+        let msg = `*NUEVO PEDIDO COLMADO*%0A*Cliente:* ${n}%0A`;
+        if(nota) msg += `%0A*PEDIDO ESPECIAL:*%0A${nota}%0A`;
+        msg += `%0A*PRODUCTOS:*%0A`;
+        for (let id in carrito) msg += `- ${carrito[id].cant}x ${carrito[id].nombre}%0A`;
+        msg += `%0A*TOTAL: RD$ ${document.getElementById('total-m').innerText}*`;
+        window.open(`https://wa.me/18097214456?text=${msg}`);
     }
-</script>
 
+    renderizar(productos);
+</script>
 </body>
 </html>
