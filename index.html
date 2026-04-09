@@ -163,7 +163,7 @@
     
     function enviar() {
         const n = document.getElementById('nombre-cliente').value; const e = document.getElementById('entrega').value; const d = document.getElementById('direccion-cliente').value; const p = document.getElementById('pago').value; const nota = document.getElementById('nota-especial').value;
-        let msg = `*ORDEN EL BARATÓN*%0A*Cliente:* ${n}%0A*Entrega:* ${e}%0A`; if (e.includes('Delivery')) msg += `*Dirección:* ${d}%0A`; msg += `*Pago:* ${p}%0A`; if (nota) msg += `%0A*NOTA EXTRA:*%0A${nota}%0A`; msg += `%0A*PRODUCTOS:*%0A`; for (let id in carrito) msg += `- ${carrito[id].cant}x ${carrito[id].nombre} (RD$ ${carrito[id].precio})%0A`; 
+        let msg = `*NUEVO PEDIDO*%0A*Cliente:* ${n}%0A*Entrega:* ${e}%0A`; if (e.includes('Delivery')) msg += `*Dirección:* ${d}%0A`; msg += `*Pago:* ${p}%0A`; if (nota) msg += `%0A*NOTA EXTRA:*%0A${nota}%0A`; msg += `%0A*PRODUCTOS:*%0A`; for (let id in carrito) msg += `- ${carrito[id].cant}x ${carrito[id].nombre} (RD$ ${carrito[id].precio})%0A`; 
         msg += `%0A*TOTAL: RD$ ${document.getElementById('total-m').innerText}*%0A%0A`;
         if (p === 'Transferencia') msg += `_⚠ Favor enviar comprobante ahora para confirmar despacho._`;
         window.open(`https://wa.me/18097214456?text=${msg}`);
