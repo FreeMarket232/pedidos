@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super Colmado El Baratón v1.7.8 🇩🇴</title>
+    <title>Super Colmado El Baratón v1.8.2 🇩🇴</title>
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="El Baratón">
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/1170/1170678.png">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/1170/1170678.png">
 
     <style>
         :root { --primary: #cf2027; --secondary: #002d62; --whatsapp: #25d366; --bg: #f4f7f6; --text: #333; --card-bg: #ffffff; }
@@ -12,8 +16,17 @@
         
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: var(--text); padding-bottom: 140px; transition: 0.3s; }
         
-        /* 1. PORTADA DE BIENVENIDA */
+        /* BANNER DE BIENVENIDA */
         .welcome-header img { width: 100%; height: auto; display: block; border-bottom: 4px solid var(--primary); }
+
+        /* AVISO DE INSTALACIÓN INTELIGENTE */
+        #pwa-banner {
+            background: #fff3cd; color: #856404; padding: 12px; border-bottom: 2px solid #ffeeba;
+            display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem;
+            animation: slideDown 0.5s ease;
+        }
+        @keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+        #pwa-banner button { background: var(--secondary); color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
 
         .brand-info {
             background: var(--card-bg); display: grid; grid-template-columns: 1fr 1.5fr 1fr;
@@ -23,17 +36,14 @@
         .center-txt h1 { margin: 0; font-size: 1.1rem; color: var(--primary); text-transform: uppercase; }
         .theme-btn { background: var(--secondary); color: white; border: none; padding: 5px 10px; border-radius: 12px; font-size: 0.6rem; cursor: pointer; margin-top: 5px; }
 
-        /* NAVEGACIÓN Y BUSCADOR */
         .sticky-nav { position: sticky; top: 0; z-index: 1000; background: var(--card-bg); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .search-area { padding: 10px 15px; }
         #buscador { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 25px; outline: none; background: var(--bg); color: var(--text); }
 
         .nav-categorias { display: flex; overflow-x: auto; padding: 10px; gap: 8px; border-top: 1px solid #eee; }
-        .nav-categorias::-webkit-scrollbar { display: none; }
         .nav-categorias button { background: #eee; border: none; padding: 6px 15px; border-radius: 20px; font-weight: bold; white-space: nowrap; cursor: pointer; color: #555; font-size: 0.75rem; }
         .nav-categorias button.active { background: var(--secondary); color: white; }
 
-        /* PRODUCTOS */
         .grid-productos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
         .card { background: var(--card-bg); border-radius: 12px; padding: 10px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: space-between; }
         .img-wrapper { width: 100%; height: 90px; border-radius: 8px; overflow: hidden; margin-bottom: 8px; background: #fff; }
@@ -42,7 +52,6 @@
         .precio-input { width: 55px; padding: 3px; text-align: center; border: 1px solid #ddd; border-radius: 5px; font-weight: bold; color: var(--primary); }
         .btn-add { background: var(--secondary); color: white; border: none; padding: 8px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; font-size: 0.75rem; }
 
-        /* BURBUJA FLOTANTE 🤔 */
         .btn-nota-flotante { 
             position: fixed; bottom: 85px; right: 20px; background: #ffeb3b; color: #333; padding: 12px 18px; 
             border-radius: 30px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 1001; cursor: pointer; border: 2px solid #fbc02d; 
@@ -60,8 +69,16 @@
 </head>
 <body>
 
+<div id="pwa-banner">
+    <span>📲 Instale la App para pedir más rápido</span>
+    <div>
+        <button onclick="ayudaInstalar()">¿CÓMO?</button>
+        <button onclick="cerrarBanner()" style="background:#6c757d">X</button>
+    </div>
+</div>
+
 <div class="welcome-header">
-    <img src="https://i.ibb.co/WpDJBMXm/Gffemini-Generated-Image-z5iozfz5iozfz5io.png" alt="Bienvenida El Baratón">
+    <img src="https://i.ibb.co/WpDJBMXm/Gffemini-Generated-Image-z5iozfz5iozfz5io.png" alt="Bienvenida">
 </div>
 
 <div class="brand-info">
@@ -70,13 +87,11 @@
         <h1>El Baratón</h1>
         <button class="theme-btn" onclick="toggleTheme()">🌓 Tema</button>
     </div>
-    <div class="side-txt">📍 Los Frailes II<br>Santo Domingo Este</div>
+    <div class="side-txt">📍 Los Frailes II<br>Sto. Dgo. Este</div>
 </div>
 
 <div class="sticky-nav">
-    <div class="search-area">
-        <input type="text" id="buscador" placeholder="🔍 ¿Qué busca hoy?" onkeyup="buscarProducto()">
-    </div>
+    <div class="search-area"><input type="text" id="buscador" placeholder="🔍 ¿Qué busca hoy?" onkeyup="buscarProducto()"></div>
     <div class="nav-categorias">
         <button class="active" onclick="filtrar('todos')">Todos</button>
         <button onclick="filtrar('carnes')">Carnes</button>
@@ -93,14 +108,14 @@
 <div class="btn-nota-flotante" onclick="abrirNota()"><span>🤔 ¿Falta algo?</span></div>
 
 <div class="footer-fijo" onclick="abrirCarrito()">
-    <span>🛒 BOLSA (<span id="count">0</span>)</span>
+    <span>🛒 MI BOLSA (<span id="count">0</span>)</span>
     <strong>RD$ <span id="total-f">0</span></strong>
 </div>
 
 <div id="pantalla-nota">
     <button onclick="cerrarNota()" style="float:right; border:none; background:none; font-size:2rem; color:var(--text)">✕</button>
-    <h2>¿Qué más te mando? 🤔</h2>
-    <textarea id="nota-especial" oninput="validarFormulario()" rows="6" style="width:100%; border:2px solid #fbc02d; background: #fffde7; border-radius: 12px; padding: 15px; font-size: 1rem; outline: none;" placeholder="Ej: Hielo, carbón, limones..."></textarea>
+    <h2>¿Qué más le mando? 🤔</h2>
+    <textarea id="nota-especial" oninput="validarFormulario()" rows="6" style="width:100%; border:2px solid #fbc02d; background: #fffde7; border-radius: 12px; padding: 15px; font-size: 1rem; outline: none;" placeholder="Ej: Carbón, hielo, limones..."></textarea>
     <button style="background:var(--secondary); color:white; border:none; width:100%; padding:15px; border-radius:10px; font-weight:bold; margin-top:20px;" onclick="cerrarNota()">GUARDAR NOTA</button>
 </div>
 
@@ -111,26 +126,12 @@
     <div style="background: rgba(0,0,0,0.05); padding: 15px; border-radius: 10px; font-weight: bold;">
         <div style="display:flex; justify-content: space-between;"><span>Total:</span> <span>RD$ <span id="total-m">0</span></span></div>
     </div>
-
     <div style="margin-top: 20px;">
         <input type="text" id="nombre-cliente" oninput="validarFormulario()" placeholder="Tu Nombre (Obligatorio)" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; margin-bottom:12px;">
-        <select id="entrega" onchange="gestionarEntrega()" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; margin-bottom:12px;">
-            <option value="Pasaré a recoger">Pasaré a recoger</option>
-            <option value="Delivery">Envío a domicilio (Delivery)</option>
-        </select>
-        <div id="campo-direccion" style="display:none; margin-bottom:12px;">
-            <input type="text" id="direccion-cliente" oninput="validarFormulario()" placeholder="Dirección Exacta (Obligatorio)" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px;">
-        </div>
-        <select id="pago" onchange="mostrarBanco()" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px;">
-            <option value="Efectivo">Efectivo</option>
-            <option value="Transferencia">Transferencia Bancaria</option>
-        </select>
-        <div id="info-banco" style="display:none;" class="box-banco">
-            <strong>🏦 DATOS PARA PAGO:</strong><br>
-            • Banreservas: 9607923649 (Joel de la cruz)<br>
-            • Popular: 848757324 (Wascar Pérez)<br><br>
-            <strong>⚠️ IMPORTANTE:</strong> Solo transferencias instantáneas (LBTR). Favor enviar comprobante ahora para confirmar despacho.
-        </div>
+        <select id="entrega" onchange="gestionarEntrega()" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; margin-bottom:12px;"><option value="Pasaré a recoger">Pasaré a recoger</option><option value="Delivery">Envío a domicilio (Delivery)</option></select>
+        <div id="campo-direccion" style="display:none; margin-bottom:12px;"><input type="text" id="direccion-cliente" oninput="validarFormulario()" placeholder="Dirección Completa (Obligatorio)" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px;"></div>
+        <select id="pago" onchange="mostrarBanco()" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px;"><option value="Efectivo">Efectivo</option><option value="Transferencia">Transferencia Bancaria</option></select>
+        <div id="info-banco" style="display:none;" class="box-banco"><strong>🏦 CUENTAS:</strong><br>• Banreservas: 9607923649 (Joel)<br>• Popular: 848757324 (Wascar)<br><br><small>⚠️ Envíe comprobante para confirmar.</small></div>
         <button id="btn-finalizar" disabled onclick="enviar()" class="btn-final">🚀 PEDIR POR WHATSAPP</button>
     </div>
 </div>
@@ -150,6 +151,14 @@
     ];
 
     let carrito = {};
+
+    // GESTIÓN DEL BANNER APP
+    if (window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches) {
+        document.getElementById('pwa-banner').style.display = 'none';
+    }
+
+    function ayudaInstalar() { alert("Para instalar:\n- iPhone: Toca 'Compartir' y luego 'Agregar a Inicio'.\n- Android: Toca los 3 puntos y luego 'Instalar aplicación'."); }
+    function cerrarBanner() { document.getElementById('pwa-banner').style.display = 'none'; }
     function toggleTheme() { document.body.classList.toggle('dark-mode'); }
 
     function renderizar(lista) {
@@ -170,7 +179,7 @@
     function validarPrecio(id, n) {
         const p = productos.find(x => x.id === id);
         const v = parseFloat(n);
-        if (v < 25) { alert("Mínimo de seguridad RD$ 25"); p.precio = 25; } else { p.precio = v; }
+        if (v < 25) { alert("Mínimo RD$ 25"); p.precio = 25; } else { p.precio = v; }
         if (carrito[id]) carrito[id].precio = p.precio;
         actualizar(); renderizar(productos);
     }
@@ -207,7 +216,7 @@
 
     function abrirCarrito() {
         const nota = document.getElementById('nota-especial').value.trim();
-        if (Object.keys(carrito).length === 0 && nota.length === 0) return alert("Agregue productos o escriba su pedido especial.");
+        if (Object.keys(carrito).length === 0 && nota.length === 0) return alert("Agregue productos o una nota especial.");
         const div = document.getElementById('items-lista'); div.innerHTML = "";
         for (let id in carrito) div.innerHTML += `<div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #eee;"><span>${carrito[id].nombre} (x${carrito[id].cant})</span><b>RD$ ${carrito[id].precio * carrito[id].cant}</b></div>`;
         document.getElementById('pantalla-carrito').style.display = 'block';
@@ -225,7 +234,7 @@
         if (nota) msg += `%0A*NOTA EXTRA:*%0A${nota}%0A`;
         msg += `%0A*PRODUCTOS:*%0A`;
         for (let id in carrito) msg += `- ${carrito[id].cant}x ${carrito[id].nombre} (RD$ ${carrito[id].precio})%0A`;
-        msg += `%0A*TOTAL: RD$ ${document.getElementById('total-m').innerText}*%0A%0A_⚠️ Favor enviar captura del comprobante ahora para confirmar._`;
+        msg += `%0A*TOTAL: RD$ ${document.getElementById('total-m').innerText}*%0A%0A_⚠️ Favor enviar captura del comprobante ahora._`;
         window.open(`https://wa.me/18097214456?text=${msg}`);
     }
 
