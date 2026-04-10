@@ -1,0 +1,15 @@
+{
+  "name": "Super Colmado El Baratón",
+  "short_name": "El Baratón",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f4f7f6",
+  "theme_color": "#002d62",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/1170/1170678.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
